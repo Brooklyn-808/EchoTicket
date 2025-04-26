@@ -29,45 +29,45 @@ st.title("Edit Server Configurations")
 with st.form("edit_config_form"):
     st.subheader("Update Server Configuration")
 
-    key = st.text_input("Key", placeholder="Enter the server key")
-    change_key = st.text_input("Change Key", placeholder="Enter the key to change")
+    key = st.text_input("Key", placeholder="Enter the server key", help="The unique identifier for the server.")
+    change_key = st.selectbox(
+        "Change Key",
+        options=[
+            "ticket-open-message", "ticket-category", "ticket-channel", "ticket-message",
+            "auto-rename", "user-close", "staff-id", "whitelist", "role-id", "ticket-transcribe", "transcript"
+        ],
+        help="Select the configuration key you want to update."
+    )
 
-    value_placeholder = "Enter the new value"
-    if change_key == "ticket-open-message":
-        value = st.text_input("Value", placeholder=value_placeholder)
-    elif change_key == "ticket-category":
-        
-        value = st.text_input("Value", placeholder=value_placeholder)
-    elif change_key == "ticket-channel":
-        
-        value = st.text_input("Value", placeholder=value_placeholder)
-    elif change_key == "ticket-message":
-        
-        value = st.text_input("Value", placeholder=value_placeholder)
-    elif change_key == "auto-rename":
-        
-        value = st.selectbox("Value", options=[True, False])
-    elif change_key == "user-close":
-        
-        value = st.selectbox("Value", options=[True, False])
-    elif change_key == "staff-id":
-        
-        value = st.number_input("Value", value=0)
-    elif change_key == "whitelist":
-        
-        value = st.selectbox("Value", options=[True, False])
-    elif change_key == "role-id":
-        
-        value = st.number_input("Value", value=0)
-    elif change_key == "ticket-transcribe":
-        
-        
-        value = st.selectbox("Value", options=[True, False])
-    elif change_key == "transcript":
-        
-        value = st.number_input("Value", value=0)
-    
-    
+    input_types = {
+        "ticket-open-message": st.text_input,
+        "ticket-category": st.text_input,
+        "ticket-channel": st.text_input,
+        "ticket-message": st.text_input,
+        "auto-rename": st.selectbox,
+        "user-close": st.selectbox,
+        "staff-id": st.number_input,
+        "whitelist": st.selectbox,
+        "role-id": st.number_input,
+        "ticket-transcribe": st.selectbox,
+        "transcript": st.number_input
+    }
+
+    input_args = {
+        "ticket-open-message": {"placeholder": "Enter the new message"},
+        "ticket-category": {"placeholder": "Enter the new category"},
+        "ticket-channel": {"placeholder": "Enter the new channel prefix"},
+        "ticket-message": {"placeholder": "Enter the new ticket message"},
+        "auto-rename": {"options": [True, False]},
+        "user-close": {"options": [True, False]},
+        "staff-id": {"value": 0},
+        "whitelist": {"options": [True, False]},
+        "role-id": {"value": 0},
+        "ticket-transcribe": {"options": [True, False]},
+        "transcript": {"value": 0}
+    }
+
+    value = input_types[change_key]("Value", **input_args[change_key])
 
     # Submit button
     submitted = st.form_submit_button("Update Configuration")
@@ -82,12 +82,12 @@ with st.form("edit_config_form"):
         }
 
         try:
-            response = requests.post(api_url, data=payload)
+            response = requests.post(api_url, json=payload)
             if response.status_code == 200:
                 st.success("Configuration updated successfully!")
             elif response.status_code == 403:
-                st.error("Unauthorized: Invalid key.")
+                st.error("Unauthorized: Invalid key. Please check your server key.")
             else:
                 st.error(f"Error: {response.status_code} - {response.text}")
         except requests.exceptions.RequestException as e:
-            st.error(f"Request failed: {e}")
+            st.error(f"Request failed: {e}. Please check your network connection and try again.")
