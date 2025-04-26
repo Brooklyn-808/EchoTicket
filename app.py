@@ -29,7 +29,7 @@ st.title("Edit Server Configurations")
 with st.form("edit_config_form"):
     st.subheader("Update Server Configuration")
 
-    keyed = st.text_input("Key", placeholder="Enter the server key", help="The unique identifier for the server.")
+    solikekey = st.text_input("Key", placeholder="Enter the server key", help="The unique identifier for the server.")
     change_key = st.selectbox(
         "Change Key",
         options=[
@@ -83,7 +83,7 @@ with st.form("edit_config_form"):
         # Send POST request to the API endpoint
         api_url = "http://212.192.29.158:25200/update-config"  # Replace with the actual API URL
         payload = {
-            "key": keyed,
+            "key": solikekey,
             "change": change_key,
             "value": value
         }
@@ -93,7 +93,7 @@ with st.form("edit_config_form"):
             if response.status_code == 200:
                 st.success("Configuration updated successfully!")
             elif response.status_code == 403:
-                st.error("Unauthorized: Invalid key. Please check your server key.")
+                st.error(f"Unauthorized: Invalid key. Please check your server key. '{solikekey}'")
             else:
                 st.error(f"Error: {response.status_code} - {response.text}")
         except requests.exceptions.RequestException as e:
