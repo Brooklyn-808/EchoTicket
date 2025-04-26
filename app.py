@@ -68,11 +68,11 @@ with st.form("edit_config_form"):
     }
     if change_key:
         if input_types[change_key] == "text":
-            value = st.text_input("Value", **input_args[change_key])
+            value = st.text_input("Value", key=f"value_text_{change_key}", **input_args[change_key])
         elif input_types[change_key] == "number":
-            value = st.number_input("Value", **input_args[change_key])
+            value = st.number_input("Value", key=f"value_number_{change_key}", **input_args[change_key])
         elif input_types[change_key] == "selectbox":
-            value = st.selectbox("Value", **input_args[change_key])
+            value = st.selectbox("Value", key=f"value_selectbox_{change_key}", **input_args[change_key])
         else:
             st.error("Invalid input type. Please check the configuration key.")
 
