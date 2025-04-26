@@ -29,7 +29,7 @@ st.title("Edit Server Configurations")
 with st.form("edit_config_form"):
     st.subheader("Update Server Configuration")
 
-    key = st.text_input("Key", placeholder="Enter the sevrer key")
+    key = st.text_input("Key", placeholder="Enter the server key")
     change_key = st.text_input("Change Key", placeholder="Enter the key to change")
 
     value_placeholder = "Enter the new value"
