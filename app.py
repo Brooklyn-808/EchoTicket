@@ -22,7 +22,7 @@ def get_server_data():
             "transcript": 1365525180528594994
         }
     }
-
+st.set_page_config(page_title="Server Configurations", page_icon="🗂️")
 st.title("Edit Server Configurations")
 
 # Form to edit servers.json
