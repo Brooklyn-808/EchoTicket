@@ -40,17 +40,17 @@ with st.form("edit_config_form"):
     )
 
     input_types = {
-        "ticket-open-message": st.text_input,
-        "ticket-category": st.text_input,
-        "ticket-channel": st.text_input,
-        "ticket-message": st.text_input,
-        "auto-rename": st.selectbox,
-        "user-close": st.selectbox,
-        "staff-id": st.number_input,
-        "whitelist": st.selectbox,
-        "role-id": st.number_input,
-        "ticket-transcribe": st.selectbox,
-        "transcript": st.number_input
+        "ticket-open-message": "text",
+        "ticket-category": "text",
+        "ticket-channel": "text",
+        "ticket-message": "text",
+        "auto-rename": "selectbox",
+        "user-close": "selectbox",
+        "staff-id": "number",
+        "whitelist": "selectbox",
+        "role-id": "number",
+        "ticket-transcribe": "selectbox",
+        "transcript": "number"
     }
 
     input_args = {
@@ -67,7 +67,14 @@ with st.form("edit_config_form"):
         "transcript": {"value": 0}
     }
     if change_key.strip() != "":
-        value = input_types[change_key]("Value", **input_args[change_key])
+        if input_types[change_key] == "text":
+            value = st.text_input("Value", **input_args[change_key])
+        elif input_types[change_key] == "number":
+            value = st.number_input("Value", **input_args[change_key])
+        elif input_types[change_key] == "selectbox":
+            value = st.selectbox("Value", **input_args[change_key])
+        else:
+            st.error("Invalid input type. Please check the configuration key.")
 
     # Submit button
     submitted = st.form_submit_button("Update Configuration")
