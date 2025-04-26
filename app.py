@@ -66,7 +66,7 @@ with st.form("edit_config_form"):
         "ticket-transcribe": {"options": [True, False]},
         "transcript": {"value": 0}
     }
-    if key.strip() != "":
+    if change_key.strip() != "":
         value = input_types[change_key]("Value", **input_args[change_key])
 
     # Submit button
