@@ -33,9 +33,7 @@ with st.form("edit_config_form"):
     change_key = st.text_input("Change Key", placeholder="Enter the key to change")
 
     value_placeholder = "Enter the new value"
-    if change_key == "key":
-        value = st.text_input("Value", placeholder=value_placeholder, disabled=True)
-    elif change_key == "ticket-open-message":
+    if change_key == "ticket-open-message":
         value = st.text_input("Value", placeholder=value_placeholder)
     elif change_key == "ticket-category":
         
@@ -68,8 +66,7 @@ with st.form("edit_config_form"):
     elif change_key == "transcript":
         
         value = st.number_input("Value", value=0)
-    else:
-        value = st.text_input("Value", placeholder=value_placeholder)
+    
     
 
     # Submit button
