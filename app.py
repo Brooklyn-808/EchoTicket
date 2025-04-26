@@ -29,7 +29,7 @@ st.title("Edit Server Configurations")
 with st.form("edit_config_form"):
     st.subheader("Update Server Configuration")
 
-    key = st.text_input("Key", placeholder="Enter the server key", help="The unique identifier for the server.")
+    keyed = st.text_input("Key", placeholder="Enter the server key", help="The unique identifier for the server.")
     change_key = st.selectbox(
         "Change Key",
         options=[
@@ -83,7 +83,7 @@ with st.form("edit_config_form"):
         # Send POST request to the API endpoint
         api_url = "http://212.192.29.158:25200/update-config"  # Replace with the actual API URL
         payload = {
-            "key": key,
+            "key": keyed,
             "change": change_key,
             "value": value
         }
