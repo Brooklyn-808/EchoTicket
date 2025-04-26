@@ -70,8 +70,7 @@ with st.form("edit_config_form"):
         value = input_types[change_key]("Value", **input_args[change_key])
 
     # Submit button
-    if value:
-        submitted = st.form_submit_button("Update Configuration")
+    submitted = st.form_submit_button("Update Configuration")
 
     if submitted:
         # Send POST request to the API endpoint
