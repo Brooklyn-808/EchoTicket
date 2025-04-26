@@ -66,11 +66,12 @@ with st.form("edit_config_form"):
         "ticket-transcribe": {"options": [True, False]},
         "transcript": {"value": 0}
     }
-
-    value = input_types[change_key]("Value", **input_args[change_key])
+    if key.strip() != "":
+        value = input_types[change_key]("Value", **input_args[change_key])
 
     # Submit button
-    submitted = st.form_submit_button("Update Configuration")
+    if value:
+        submitted = st.form_submit_button("Update Configuration")
 
     if submitted:
         # Send POST request to the API endpoint
